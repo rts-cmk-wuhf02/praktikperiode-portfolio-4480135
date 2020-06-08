@@ -1,0 +1,17 @@
+@import "./base.scss";
+@import "./creationCard.scss";
+
+.creations-container {
+    $gap: 40px;
+    $columns: 4;
+
+    display: grid;
+    grid-template-columns: repeat(
+        #{$columns},
+        calc((100vw - 128px) / #{$columns} - #{$gap})
+    );
+    grid-auto-rows: calc((100vw - 128px) / #{$columns} - #{$gap});
+    width: 100%;
+    box-sizing: border-box;
+    grid-gap: $gap;
+}

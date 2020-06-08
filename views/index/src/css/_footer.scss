@@ -1,0 +1,17 @@
+footer {
+    height: 32px;
+    flex-shrink: 0;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 16px;
+        height: inherit;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box;
+        color: $dp03;
+    }
+}

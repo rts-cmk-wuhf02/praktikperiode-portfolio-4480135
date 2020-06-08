@@ -1,0 +1,51 @@
+@import "./base.scss";
+@import "./progressBar.scss";
+
+.about-container {
+    display: flex;
+    margin-top: 70px;
+
+    .logo-wrapper {
+        width: 35%;
+        margin-left: 5%;
+        margin-right: 5%;
+        flex-shrink: 0;
+        perspective: 800px;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 100%;
+            transform: rotateY(15deg);
+            filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
+            -webkit-filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
+        }
+    }
+
+    .info-wrapper {
+        h1 {
+            font-size: 3rem;
+            margin: 0.5em 0;
+            font-weight: 900;
+        }
+
+        .skills {
+            margin-top: 3rem;
+        }
+    }
+
+    .socials {
+        margin-top: 2rem;
+
+        a {
+            color: white;
+            font-size: 3rem;
+            display: inline-block;
+            height: 1em;
+
+            svg {
+                vertical-align: baseline;
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+@import "./footer.scss";
+@import "./header.scss";
+
+body {
+    margin: 0;
+    background-color: $primary;
+    color: $white;
+    font-family: "Roboto", sans-serif;
+}
+
+#root {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-link {
+    color: $highlight;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+        background-color: rgba($highlight, 0.15);
+    }
+}
+
+main {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 96px 64px 64px 64px;
+    overflow: hidden;
+    flex-grow: 1;
+}

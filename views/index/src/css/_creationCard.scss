@@ -4,6 +4,7 @@
     height: 100%;
     background-color: $primary;
     color: $white;
+    perspective: 800px;
 
     .side-a {
         top: 0;
@@ -13,7 +14,7 @@
         position: absolute;
         z-index: 10;
         backface-visibility: hidden;
-        transition: transform 0.75s ease-in-out;
+        transition: transform 0.65s ease-in-out;
         background-color: inherit;
         border-radius: 10px;
         overflow: hidden;
@@ -31,7 +32,7 @@
         position: absolute;
         z-index: 5;
         background-color: $secondary;
-        transition: transform 0.75s ease-in-out;
+        transition: transform 0.65s ease-in-out;
         border-radius: 10px;
         overflow: hidden;
 

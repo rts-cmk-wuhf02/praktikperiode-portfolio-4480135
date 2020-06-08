@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from "react";
+import ImageSide from "./ImageSide";
 
 import "../css/creationDetails.scss";
 
@@ -20,24 +21,18 @@ const CreationDetails = (props) => {
     });
 
     return (
-        <div className="about-container">
-            <section className="logo-wrapper">
+        <ImageSide
+            name={creation.id ? creation.name : ""}
+            image_src={creation.id ? creation.image_url : ""}
+            image_href={creation.id ? creation.url : ""}
+        >
+            <h1>
                 <a href={creation.id ? creation.url : ""}>
-                    <img
-                        src={creation.id ? creation.image_url : ""}
-                        alt="Icon"
-                    />
+                    {creation.id ? creation.name : ""}
                 </a>
-            </section>
-            <section className="info-wrapper">
-                <h1>
-                    <a href={creation.id ? creation.url : ""}>
-                        {creation.id ? creation.name : ""}
-                    </a>
-                </h1>
-                <p>{creation.id ? creation.description : ""}</p>
-            </section>
-        </div>
+            </h1>
+            <p>{creation.id ? creation.description : ""}</p>
+        </ImageSide>
     );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from "react";
 import ImageSide from "./ImageSide";
+import Layout from "./Layout";
 
 import "../css/creationDetails.scss";
 
@@ -8,8 +9,6 @@ const CreationDetails = (props) => {
 
     useLayoutEffect(() => {
         if (!creation.id && !creation.error) {
-            console.log(props);
-
             fetch("/api/get/creations/" + props.url_slug)
                 .then((response) => {
                     return response.json();
@@ -21,18 +20,25 @@ const CreationDetails = (props) => {
     });
 
     return (
-        <ImageSide
-            name={creation.id ? creation.name : ""}
-            image_src={creation.id ? creation.image_url : ""}
-            image_href={creation.id ? creation.url : ""}
+        <Layout
+            title={creation.name ? creation.name : ""}
+            slug={`creation/${creation.url_slug ? creation.url_slug : 2}`}
+            description={""}
+            keywords={[]}
         >
-            <h1>
-                <a href={creation.id ? creation.url : ""}>
-                    {creation.id ? creation.name : ""}
-                </a>
-            </h1>
-            <p>{creation.id ? creation.description : ""}</p>
-        </ImageSide>
+            <ImageSide
+                name={creation.id ? creation.name : ""}
+                image_src={creation.id ? creation.image_url : ""}
+                image_href={creation.id ? creation.url : ""}
+            >
+                <h1>
+                    <a href={creation.id ? creation.url : ""}>
+                        {creation.id ? creation.name : ""}
+                    </a>
+                </h1>
+                <p>{creation.id ? creation.description : ""}</p>
+            </ImageSide>
+        </Layout>
     );
 };
 

@@ -1,6 +1,6 @@
 .progress-bar {
     position: relative;
-    width: 70%;
+    width: 100%;
     margin: 10px auto;
     height: 2rem;
     background-color: $secondary;
@@ -16,6 +16,10 @@
         left: 0;
         height: 100%;
         user-select: none;
+    }
+
+    @media screen and (min-width: 500px) {
+        width: 70%;
     }
 
     @media screen and (min-width: 800px) {

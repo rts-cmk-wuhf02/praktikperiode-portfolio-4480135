@@ -1,12 +1,15 @@
 import React from "react";
 
 import "../css/contact.scss";
+import Layout from "./Layout";
 
 const Contact = () => {
     return (
-        <div className="contact-container">
-            <p className="email">ahlgreenmadsen@gmail.com</p>
-        </div>
+        <Layout title="Contact" slug="contact" description="" keywords={[]}>
+            <div className="contact-container">
+                <p className="email">ahlgreenmadsen@gmail.com</p>
+            </div>
+        </Layout>
     );
 };
 

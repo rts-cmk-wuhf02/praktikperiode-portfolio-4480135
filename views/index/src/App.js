@@ -7,6 +7,7 @@ import CreationDetails from "./js/CreationDetails";
 import Contact from "./js/Contact";
 import Footer from "./js/Footer";
 import Header from "./js/Header";
+import { HelmetProvider } from "react-helmet-async";
 
 class OnRouteChangeWorker extends React.Component {
     componentDidUpdate(prevProps) {
@@ -31,24 +32,26 @@ const OnRouteChange = ({ action }) => (
 const App = () => {
     return (
         <React.StrictMode>
-            <Header />
+            <HelmetProvider>
+                <Header />
 
-            <main>
-                <Router>
-                    <Home path="/" />
-                    <Creations path="/creations" />
-                    <CreationDetails path="/creation/:url_slug" />
-                    <Contact path="/contact" />
-                </Router>
+                <main>
+                    <Router>
+                        <Home path="/" />
+                        <Creations path="/creations" />
+                        <CreationDetails path="/creation/:url_slug" />
+                        <Contact path="/contact" />
+                    </Router>
 
-                <OnRouteChange
-                    action={() => {
-                        window.scrollTo(0, 0);
-                    }}
-                />
-            </main>
+                    <OnRouteChange
+                        action={() => {
+                            window.scrollTo(0, 0);
+                        }}
+                    />
+                </main>
 
-            <Footer />
+                <Footer />
+            </HelmetProvider>
         </React.StrictMode>
     );
 };

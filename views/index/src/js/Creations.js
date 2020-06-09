@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import CreationCard from "./CreationCard";
 
 import "../css/creations.scss";
+import Layout from "./Layout";
 
 const Creations = () => {
     const [creations, setCreations] = useState([]);
@@ -19,19 +20,21 @@ const Creations = () => {
     });
 
     return (
-        <div className="creations-container">
-            {creations.map((creation, i) => {
-                return (
-                    <CreationCard
-                        key={i}
-                        src={creation.image_url}
-                        url_slug={creation.url_slug}
-                    >
-                        <p>{creation.name}</p>
-                    </CreationCard>
-                );
-            })}
-        </div>
+        <Layout title="Creations" slug="creations" description="" keywords={[]}>
+            <div className="creations-container">
+                {creations.map((creation, i) => {
+                    return (
+                        <CreationCard
+                            key={i}
+                            src={creation.image_url}
+                            url_slug={creation.url_slug}
+                        >
+                            <p>{creation.name}</p>
+                        </CreationCard>
+                    );
+                })}
+            </div>
+        </Layout>
     );
 };
 

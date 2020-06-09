@@ -33,7 +33,15 @@ body {
 main {
     box-sizing: border-box;
     width: 100%;
-    padding: 96px 64px 64px 64px;
+    padding: 96px 16px 16px 16px;
     overflow: hidden;
     flex-grow: 1;
+
+    @media screen and (min-width: 600px) {
+        padding: 96px 32px 32px 32px;
+    }
+
+    @media screen and (min-width: 800px) {
+        padding: 96px 64px 64px 64px;
+    }
 }

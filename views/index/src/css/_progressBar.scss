@@ -1,11 +1,11 @@
 .progress-bar {
     position: relative;
-    width: 300px;
+    width: 70%;
+    margin: 10px auto;
     height: 2rem;
     background-color: $secondary;
     border-radius: 30px;
     overflow: hidden;
-    margin: 10px 0;
 
     .progress-filler {
         background-color: $highlight;
@@ -16,5 +16,10 @@
         left: 0;
         height: 100%;
         user-select: none;
+    }
+
+    @media screen and (min-width: 800px) {
+        width: 300px;
+        margin: 10px 0;
     }
 }

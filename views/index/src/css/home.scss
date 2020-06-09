@@ -2,43 +2,33 @@
 @import "./progressBar.scss";
 
 .image-side-container {
-    display: flex;
-    margin-top: 70px;
-
-    .logo-wrapper {
-        width: 32vw;
-        height: 32vw;
-        margin-left: 5%;
-        margin-right: 5%;
-        flex-shrink: 0;
-        perspective: 800px;
-        display: flex;
-        align-items: center;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: rotateY(15deg);
-            filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
-            -webkit-filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
-        }
-    }
-
     .info-wrapper {
         h1 {
+            text-align: center;
             font-size: 3rem;
             margin: 0.5em 0;
             font-weight: 900;
+
+            @media screen and (min-width: 800px) {
+                text-align: left;
+            }
         }
 
         .skills {
             margin-top: 3rem;
+
+            h2 {
+                text-align: center;
+
+                @media screen and (min-width: 800px) {
+                    text-align: left;
+                }
+            }
         }
     }
 
     .socials {
-        margin-top: 2rem;
+        text-align: center;
 
         a {
             color: white;
@@ -49,6 +39,10 @@
             svg {
                 vertical-align: baseline;
             }
+        }
+
+        @media screen and (min-width: 800px) {
+            text-align: left;
         }
     }
 }

@@ -1,14 +1,10 @@
 @import "./base.scss";
 
 .image-side-container {
-    display: flex;
-    margin-top: 70px;
-
     .image-wrapper {
-        width: 32vw;
-        height: 32vw;
-        margin-left: 5%;
-        margin-right: 5%;
+        width: 50vw;
+        height: 50vw;
+        margin: 0 auto 50px auto;
         flex-shrink: 0;
         perspective: 800px;
         display: flex;
@@ -28,5 +24,17 @@
             filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
             -webkit-filter: drop-shadow(4px 2px 8px rgba(0, 0, 0, 0.5));
         }
+
+        @media screen and (min-width: 800px) {
+            width: 32vw;
+            height: 32vw;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        display: flex;
+        margin-top: 70px;
     }
 }

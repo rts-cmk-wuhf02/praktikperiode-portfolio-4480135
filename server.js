@@ -41,12 +41,12 @@ let sessionStore = new MySQLStore({
 app.use(
     session({
         cookie: {
-            secure: true,
+            secure: process.env.NODE_ENV == "production",
             maxAge: 60000,
         },
         secret: "secret",
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
         store: sessionStore,
     })
 );
@@ -61,6 +61,13 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/index"));
 app.use("/api", require("./routes/api"));
 
+// Clear session store
+sessionStore.clear((err) => {
+    if (err) console.error(err);
+    console.log("Cleared session storage.");
+});
+
+// Listen on port
 app.listen(process.env.PORT, "0.0.0.0", () =>
     console.log(`App listening on PORT ${process.env.PORT}`)
 );

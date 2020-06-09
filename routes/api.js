@@ -7,7 +7,7 @@ const generatedKeys = [];
 const credentials = [
     {
         username: "root",
-        password: "",
+        password: "root",
     },
 ];
 
@@ -58,9 +58,8 @@ router.post("/login", (req, res) => {
                 req.body.username == credentials[i].username &&
                 req.body.password == credentials[i].password
             ) {
-                let key = generateKey(req.body.username);
-
-                res.status(200).cookie("apiKey", key).json({ key });
+                req.session.adminKey = generateKey(req.body.username);
+                res.end("Done.");
                 return;
             }
         }
@@ -72,7 +71,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/post/:type", (req, res) => {
-    if (req.cookies.apiKey && !validateKey(req.cookies.apiKey, res)) return;
+    if (req.session.adminKey && !validateKey(req.session.adminKey, res)) return;
 
     if (req.query.type == "creations") {
         res.status(200).json({ response: "No response." });

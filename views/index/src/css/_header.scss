@@ -27,6 +27,8 @@ header {
 
     .header-title {
         display: none;
+        font-weight: 400;
+        letter-spacing: 1px;
 
         @media screen and (min-width: 600px) {
             display: inline;
@@ -103,7 +105,7 @@ header {
                 width: auto;
 
                 &[aria-current] {
-                    background-color: rgb(44, 44, 44);
+                    background-color: rgb(48, 48, 48);
                 }
 
                 &:hover {

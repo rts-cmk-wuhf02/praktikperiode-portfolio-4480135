@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <header onClick={handleClick}>
             <div className="header-main">
-                <span className="header-title">MadCreativity</span>
+                <span className="header-title">Ahlgreen.NET</span>
                 <span className="swipe-down-text">Tap For Menu</span>
             </div>
 

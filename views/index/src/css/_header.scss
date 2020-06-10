@@ -1,7 +1,5 @@
 header {
     width: 100%;
-    height: 56px;
-    background-color: $dp02;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,25 +10,97 @@ header {
     top: 0;
     left: 0;
     z-index: 500;
+    flex-direction: column-reverse;
+    height: 100vh;
+    transform: translateY(calc(-100% + 56px));
+    transition: transform 0.5s ease-in-out;
+    background-color: rgba(40, 40, 40, 0.9);
+
+    @media screen and (min-width: 600px) {
+        height: 56px;
+        flex-direction: row;
+        transform: none;
+        transition: none;
+    }
+
+    .header-title {
+        display: none;
+
+        @media screen and (min-width: 600px) {
+            display: inline;
+        }
+    }
+
+    .swipe-down-text {
+        pointer-events: none;
+
+        @media screen and (min-width: 600px) {
+            display: none;
+        }
+    }
+
+    .header-main {
+        line-height: 56px;
+        width: 100%;
+        text-align: center;
+
+        @media screen and (min-width: 600px) {
+            width: auto;
+            line-height: unset;
+            text-align: left;
+        }
+    }
 
     nav {
         height: 100%;
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+
+        @media screen and (min-width: 600px) {
+            width: auto;
+            flex-direction: row;
+            justify-content: unset;
+            align-items: unset;
+            text-align: left;
+        }
 
         a {
-            padding: 0 16px;
             color: $white;
             border-radius: 0;
             display: flex;
             align-items: center;
             text-decoration: none;
+            width: 100%;
+            box-sizing: border-box;
+            justify-content: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
 
-            &[aria-current] {
-                background-color: rgb(44, 44, 44);
+            &:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
             }
 
-            &:hover {
-                background-color: rgb(38, 38, 38);
+            @media screen and (min-width: 600px) {
+                justify-content: unset;
+                box-sizing: content-box;
+                padding: 0 16px;
+                border-bottom: 0;
+                border-top: 0;
+                width: auto;
+
+                &[aria-current] {
+                    background-color: rgb(44, 44, 44);
+                }
+
+                &:hover {
+                    background-color: rgb(38, 38, 38);
+                }
             }
         }
     }

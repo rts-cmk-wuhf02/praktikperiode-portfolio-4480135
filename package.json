@@ -21,7 +21,7 @@
     "devDependencies": {},
     "scripts": {
         "prod": "concurrently \"npm:build\" \"cross-env NODE_ENV=production node server.js\"",
-        "build": "parcel build views/index/src/index.html",
+        "build": "parcel build views/index/src/index.html --no-source-maps",
         "dev": "concurrently \"parcel views/index/src/index.html\" \"cross-env NODE_ENV=development node server.js\""
     },
     "keywords": [],

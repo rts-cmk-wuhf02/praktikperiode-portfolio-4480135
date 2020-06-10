@@ -3,16 +3,16 @@ import { Link } from "@reach/router";
 
 const CreationCard = (props) => {
     return (
-        <Link to={`/creation/${props.url_slug}`}>
-            <article className="card">
-                <section className="side-a">
-                    <img src={props.src} alt="" />
-                </section>
-                <section className="side-b">
+        <article className="card">
+            <section className="side-a">
+                <img src={props.src} alt="" />
+            </section>
+            <section className="side-b">
+                <Link to={`/creation/${props.url_slug}`}>
                     <div className="content">{props.children}</div>
-                </section>
-            </article>
-        </Link>
+                </Link>
+            </section>
+        </article>
     );
 };
 

@@ -1,10 +1,11 @@
+@import "./colors.scss";
+
 header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 32px;
     flex-shrink: 0;
     position: fixed;
     top: 0;
@@ -14,13 +15,14 @@ header {
     height: 100vh;
     transform: translateY(calc(-100% + 56px));
     transition: transform 0.5s ease-in-out;
-    background-color: rgba(40, 40, 40, 0.9);
+    background-color: #282828;
 
     @media screen and (min-width: 600px) {
         height: 56px;
         flex-direction: row;
         transform: none;
         transition: none;
+        padding: 0 32px;
     }
 
     .header-title {
@@ -53,12 +55,16 @@ header {
 
     nav {
         height: 100%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-top: 56px;
         text-align: center;
-        width: 100%;
+        padding: 56px 32px 0 32px;
+        background-color: $primary;
+        box-sizing: border-box;
 
         @media screen and (min-width: 600px) {
             width: auto;
@@ -66,6 +72,8 @@ header {
             justify-content: unset;
             align-items: unset;
             text-align: left;
+            padding: 0;
+            background-color: transparent;
         }
 
         a {
@@ -99,7 +107,7 @@ header {
                 }
 
                 &:hover {
-                    background-color: rgb(38, 38, 38);
+                    background-color: rgb(32, 32, 32);
                 }
             }
         }

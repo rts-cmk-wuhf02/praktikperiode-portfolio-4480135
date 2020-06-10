@@ -1,4 +1,4 @@
-@import "./colors.scss";
+@use "colors";
 
 header {
     width: 100%;
@@ -63,7 +63,7 @@ header {
         padding-top: 56px;
         text-align: center;
         padding: 56px 32px 0 32px;
-        background-color: $primary;
+        background-color: colors.$primary;
         box-sizing: border-box;
 
         @media screen and (min-width: 600px) {
@@ -77,7 +77,7 @@ header {
         }
 
         a {
-            color: $white;
+            color: colors.$white;
             border-radius: 0;
             display: flex;
             align-items: center;

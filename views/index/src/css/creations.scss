@@ -1,5 +1,5 @@
-@import "./base.scss";
-@import "./creationCard.scss";
+@use "base";
+@use "creationCard";
 
 .creations-container {
     display: grid;

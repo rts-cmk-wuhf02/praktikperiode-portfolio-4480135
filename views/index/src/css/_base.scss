@@ -1,12 +1,12 @@
-@import "./colors.scss";
-@import "./fonts.scss";
-@import "./footer.scss";
-@import "./header.scss";
+@use "colors";
+@use "fonts";
+@use "footer";
+@use "header";
 
 body {
     margin: 0;
-    background-color: $primary;
-    color: $white;
+    background-color: colors.$primary;
+    color: colors.$white;
     font-family: "Roboto", sans-serif;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 .button-link {
-    color: $highlight;
+    color: colors.$highlight;
     text-decoration: none;
     display: inline-block;
     padding: 4px 8px;
@@ -26,7 +26,7 @@ body {
     transition: background-color 0.1s ease-in-out;
 
     &:hover {
-        background-color: rgba($highlight, 0.15);
+        background-color: rgba(colors.$highlight, 0.15);
     }
 }
 

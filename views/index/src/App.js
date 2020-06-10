@@ -9,6 +9,8 @@ import Footer from "./js/Footer";
 import Header from "./js/Header";
 import { HelmetProvider } from "react-helmet-async";
 
+import "./css/app.scss";
+
 class OnRouteChangeWorker extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.location.pathname !== prevProps.location.pathname) {

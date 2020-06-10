@@ -1,14 +1,16 @@
+@use "colors";
+
 .progress-bar {
     position: relative;
     width: 100%;
     margin: 10px auto;
     height: 2rem;
-    background-color: $secondary;
+    background-color: colors.$secondary;
     border-radius: 30px;
     overflow: hidden;
 
     .progress-filler {
-        background-color: $highlight;
+        background-color: colors.$highlight;
         box-sizing: border-box;
         padding: 8px;
         position: absolute;

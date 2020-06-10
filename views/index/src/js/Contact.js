@@ -1,6 +1,5 @@
 import React from "react";
 
-import "../css/contact.scss";
 import Layout from "./Layout";
 
 const Contact = () => {

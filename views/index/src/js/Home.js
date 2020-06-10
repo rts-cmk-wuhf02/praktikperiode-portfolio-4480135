@@ -4,7 +4,6 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 import ProgressBar from "./ProgressBar";
 
-import "../css/home.scss";
 import ImageSide from "./ImageSide";
 import Layout from "./Layout";
 

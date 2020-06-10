@@ -1,5 +1,6 @@
-@import "./base.scss";
-@import "./progressBar.scss";
+@use "base";
+@use "progressBar";
+@use "imageSide";
 
 .image-side-container {
     .info-wrapper {

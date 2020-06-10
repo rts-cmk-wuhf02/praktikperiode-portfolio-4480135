@@ -1,7 +1,5 @@
 import React from "react";
 
-import "../css/imageSide.scss";
-
 const ImageSide = (props) => {
     return (
         <div className="image-side-container">

@@ -1,7 +1,6 @@
 import React, { useState, useLayoutEffect } from "react";
 import CreationCard from "./CreationCard";
 
-import "../css/creations.scss";
 import Layout from "./Layout";
 
 const Creations = () => {

@@ -2,49 +2,51 @@
 @use "progressBar";
 @use "imageSide";
 
-.image-side-container {
-    .info-wrapper {
-        h1 {
-            text-align: center;
-            font-size: 10vw;
-            margin: 0.5em 0;
-            font-weight: 900;
-
-            @media screen and (min-width: 800px) {
-                text-align: left;
-                font-size: 3rem;
-            }
-        }
-
-        .skills {
-            margin-top: 3rem;
-
-            h2 {
+.home-container {
+    .image-side-container {
+        .info-wrapper {
+            h1 {
                 text-align: center;
+                font-size: 10vw;
+                margin: 0.5em 0;
+                font-weight: 900;
 
                 @media screen and (min-width: 800px) {
                     text-align: left;
+                    font-size: 3rem;
+                }
+            }
+
+            .skills {
+                margin-top: 3rem;
+
+                h2 {
+                    text-align: center;
+
+                    @media screen and (min-width: 800px) {
+                        text-align: left;
+                    }
                 }
             }
         }
-    }
 
-    .socials {
-        text-align: center;
+        .socials {
+            text-align: center;
 
-        a {
-            color: white;
-            font-size: 3rem;
-            display: inline-block;
-            height: 1em;
+            a {
+                color: white;
+                font-size: 3rem;
+                display: inline-block;
+                height: 1em;
 
-            svg {
-                vertical-align: baseline;
+                svg {
+                    vertical-align: baseline;
+                }
             }
-        }
 
-        @media screen and (min-width: 800px) {
-            text-align: left;
+            @media screen and (min-width: 800px) {
+                text-align: left;
+            }
         }
     }
 }

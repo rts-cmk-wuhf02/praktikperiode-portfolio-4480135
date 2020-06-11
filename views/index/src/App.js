@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Location } from "@reach/router";
+import Footer from "./js/Footer";
+import Header from "./js/Header";
+
 import Home from "./js/Home";
 import Creations from "./js/Creations";
 import CreationDetails from "./js/CreationDetails";
 import Contact from "./js/Contact";
-import Footer from "./js/Footer";
-import Header from "./js/Header";
+
+import Admin from "./js/Admin";
+import AdminLogin from "./js/AdminLogin";
+
 import { HelmetProvider } from "react-helmet-async";
 
 import "./css/app.scss";
@@ -43,6 +48,9 @@ const App = () => {
                         <Creations path="/creations" />
                         <CreationDetails path="/creation/:url_slug" />
                         <Contact path="/contact" />
+
+                        <Admin path="/admin" />
+                        <AdminLogin path="/admin/login" />
                     </Router>
 
                     <OnRouteChange

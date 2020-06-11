@@ -6,8 +6,8 @@ const router = express.Router();
 const generatedKeys = [];
 const credentials = [
     {
-        username: "root",
-        password: "root",
+        username: process.env.ADMIN_USERNAME,
+        password: process.env.ADMIN_PASSWORD,
     },
 ];
 
@@ -20,7 +20,7 @@ const generateKey = (username) => {
     if (!key) {
         // TODO: Come up with a method to create keys randomly
         key = (
-            parseInt(new Buffer(username).join("")) *
+            parseInt(new Buffer.from(username).join("")) *
             (Math.random() * 10)
         ).toString(16);
 
@@ -33,13 +33,12 @@ const generateKey = (username) => {
 };
 
 // Check if key is valid
-const validateKey = (key, res) => {
+const validateKey = (key) => {
     if (
         generatedKeys.find((generatedKey) => {
             return generatedKey.key == key;
         }) == undefined
     ) {
-        res.status(400).json({ error: "Invalid API key." });
         return false;
     } else {
         return true;
@@ -59,7 +58,7 @@ router.post("/login", (req, res) => {
                 req.body.password == credentials[i].password
             ) {
                 req.session.adminKey = generateKey(req.body.username);
-                res.end("Done.");
+                res.redirect("/admin");
                 return;
             }
         }
@@ -70,8 +69,30 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/post/:type", (req, res) => {
-    if (req.session.adminKey && !validateKey(req.session.adminKey, res)) return;
+router.post("/validate", (req, res) => {
+    if (req.session.adminKey) {
+        res.json({ valid: validateKey(req.session.adminKey) });
+    } else {
+        res.json({ valid: false });
+    }
+});
+
+router.post("/insert/:type", (req, res) => {
+    if (req.session.adminKey && !validateKey(req.session.adminKey)) {
+        res.status(400).json({ error: "Invalid API key." });
+        return;
+    }
+
+    if (req.query.type == "creations") {
+        res.status(200).json({ response: "No response." });
+    }
+});
+
+router.post("/alter/:type", (req, res) => {
+    if (req.session.adminKey && !validateKey(req.session.adminKey)) {
+        res.status(400).json({ error: "Invalid API key." });
+        return;
+    }
 
     if (req.query.type == "creations") {
         res.status(200).json({ response: "No response." });

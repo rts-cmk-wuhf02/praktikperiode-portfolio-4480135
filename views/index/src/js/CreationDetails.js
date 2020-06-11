@@ -24,18 +24,20 @@ const CreationDetails = (props) => {
             description={""}
             keywords={[]}
         >
-            <ImageSide
-                name={creation.id ? creation.name : ""}
-                image_src={creation.id ? creation.image_url : ""}
-                image_href={creation.id ? creation.url : ""}
-            >
-                <h1>
-                    <a href={creation.id ? creation.url : ""}>
-                        {creation.id ? creation.name : ""}
-                    </a>
-                </h1>
-                <p>{creation.id ? creation.description : ""}</p>
-            </ImageSide>
+            <div className="creation-details-container">
+                <ImageSide
+                    name={creation.id ? creation.name : ""}
+                    image_src={creation.id ? creation.image_url : ""}
+                    image_href={creation.id ? creation.url : ""}
+                >
+                    <h1>
+                        <a href={creation.id ? creation.url : ""}>
+                            {creation.id ? creation.name : ""}
+                        </a>
+                    </h1>
+                    <p>{creation.id ? creation.description : ""}</p>
+                </ImageSide>
+            </div>
         </Layout>
     );
 };

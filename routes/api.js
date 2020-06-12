@@ -1,5 +1,6 @@
 const databaseConnection = require("../database");
 const express = require("express");
+const { session } = require("passport");
 const router = express.Router();
 
 // Credentials and generated keys
@@ -47,6 +48,8 @@ const validateKey = (key) => {
 
 // Routes
 router.post("/login", (req, res) => {
+    let sess = req.session;
+
     if (
         req.body != undefined &&
         req.body.username != undefined &&
@@ -59,7 +62,7 @@ router.post("/login", (req, res) => {
             ) {
                 req.session.adminKey = true;
 
-                res.status(200).json({ valid: true });
+                res.status(200).json({ valid: req.session.adminKey });
                 return;
             }
         }

@@ -38,16 +38,20 @@ let sessionStore = new MySQLStore({
     database: "ahlgreen_net",
 });
 
+if (process.env.NODE_ENV == "production") app.set("trust proxy", true);
 app.use(
     session({
         cookie: {
-            secure: process.env.NODE_ENV == "production",
+            //secure: process.env.NODE_ENV == "production",
+            secure: false,
             maxAge: 24 * 60 * 60 * 1000,
+            httpOnly: false,
         },
         secret: "secret",
         resave: false,
         saveUninitialized: false,
         store: sessionStore,
+        proxy: true,
     })
 );
 app.use(passport.initialize());

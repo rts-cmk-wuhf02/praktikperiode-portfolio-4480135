@@ -27,6 +27,7 @@
         background-color: colors.$white;
         padding: 5px 10px;
         outline: none;
+        width: 100%;
     }
 
     button[type="submit"] {
@@ -37,6 +38,7 @@
         padding: 10px 25px;
         position: relative;
         overflow: hidden;
+        transition: color 0.5s ease;
 
         span {
             position: relative;
@@ -48,11 +50,11 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 150%;
             height: 100%;
-            background-color: white;
-            transform-origin: bottom right;
-            transform: translate(-100%, -100%) rotateZ(-45deg);
+            background-color: rgb(48, 48, 48);
+            transform-origin: bottom left;
+            transform: rotateZ(-90deg);
             z-index: 5;
             transition: transform 0.5s ease;
         }
@@ -61,7 +63,7 @@
             cursor: pointer;
 
             &::after {
-                transform: translate(100%, -100%) rotateZ(-45deg);
+                transform: rotateZ(0);
             }
         }
     }

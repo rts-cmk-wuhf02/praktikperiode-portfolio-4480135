@@ -8,10 +8,12 @@ router.get(
         "/",
         "/index",
         "/creations",
-        "/creation/*",
+        "/creation/:url_slug",
         "/contact",
         "/admin",
+        "/admin/creations",
         "/admin/login",
+        "/admin/logout",
     ],
     (req, res) => {
         let sess = req.session;

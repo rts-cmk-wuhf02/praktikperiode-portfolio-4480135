@@ -1,6 +1,7 @@
 import React from "react";
 
 import Layout from "./Layout";
+import { redirectTo, navigate } from "@reach/router";
 
 const AdminLogin = () => {
     return (
@@ -12,9 +13,9 @@ const AdminLogin = () => {
         >
             <div className="admin-login-container">
                 <section>
-                    <form action="/api/login" method="POST">
+                    <form>
                         <section>
-                            <label for="username">Username:</label>
+                            <label htmlFor="username">Username:</label>
                             <input
                                 name="username"
                                 id="username"
@@ -25,7 +26,7 @@ const AdminLogin = () => {
                         </section>
 
                         <section>
-                            <label for="password">Password:</label>
+                            <label htmlFor="password">Password:</label>
                             <input
                                 name="password"
                                 id="password"
@@ -35,7 +36,45 @@ const AdminLogin = () => {
                             />
                         </section>
 
-                        <button type="submit">
+                        <button
+                            type="submit"
+                            onClick={(e) => {
+                                e.preventDefault();
+
+                                if (
+                                    document.querySelector("#username").value !=
+                                        "" &&
+                                    document.querySelector("#password").valid !=
+                                        ""
+                                ) {
+                                    fetch("/api/login", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            username: document.querySelector(
+                                                "#username"
+                                            ).value,
+                                            password: document.querySelector(
+                                                "#password"
+                                            ).value,
+                                        }),
+                                    })
+                                        .then((response) => {
+                                            return response.json();
+                                        })
+                                        .then((data) => {
+                                            if (data.valid) {
+                                                navigate("/admin");
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.error(err);
+                                        });
+                                }
+                            }}
+                        >
                             <span>Login</span>
                         </button>
                     </form>

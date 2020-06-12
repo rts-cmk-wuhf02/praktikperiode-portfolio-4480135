@@ -14,8 +14,11 @@ header {
     z-index: 500;
     flex-direction: column-reverse;
     transform: translateY(calc(-100% + 56px));
-    transition: transform 0.5s ease-in-out;
     background-color: #282828;
+
+    &[style] {
+        transition: transform 0.5s ease-in-out;
+    }
 
     @media screen and (min-width: 600px) {
         height: 56px;

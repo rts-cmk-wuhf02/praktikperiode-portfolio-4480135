@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Location } from "@reach/router";
-import Footer from "./js/Footer";
-import Header from "./js/Header";
 
 import Home from "./js/Home";
 import Creations from "./js/Creations";
@@ -10,6 +8,7 @@ import CreationDetails from "./js/CreationDetails";
 import Contact from "./js/Contact";
 
 import Admin from "./js/Admin";
+import AdminCreations from "./js/AdminCreations";
 import AdminLogin from "./js/AdminLogin";
 
 import { HelmetProvider } from "react-helmet-async";
@@ -40,27 +39,22 @@ const App = () => {
     return (
         <React.StrictMode>
             <HelmetProvider>
-                <Header />
+                <Router>
+                    <Home path="/" />
+                    <Creations path="/creations" />
+                    <CreationDetails path="/creation/:url_slug" />
+                    <Contact path="/contact" />
 
-                <main>
-                    <Router>
-                        <Home path="/" />
-                        <Creations path="/creations" />
-                        <CreationDetails path="/creation/:url_slug" />
-                        <Contact path="/contact" />
+                    <Admin path="/admin" />
+                    <AdminCreations path="/admin/creations" />
+                    <AdminLogin path="/admin/login" />
+                </Router>
 
-                        <Admin path="/admin" />
-                        <AdminLogin path="/admin/login" />
-                    </Router>
-
-                    <OnRouteChange
-                        action={() => {
-                            window.scrollTo(0, 0);
-                        }}
-                    />
-                </main>
-
-                <Footer />
+                <OnRouteChange
+                    action={() => {
+                        window.scrollTo(0, 0);
+                    }}
+                />
             </HelmetProvider>
         </React.StrictMode>
     );

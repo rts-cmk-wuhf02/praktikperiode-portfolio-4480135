@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { redirectTo } from "@reach/router";
+import { navigate } from "@reach/router";
 
 const ValidateAdmin = (props) => {
     const [validAdmin, setValidAdmin] = useState({ valid: undefined });
@@ -14,13 +14,16 @@ const ValidateAdmin = (props) => {
         }
     });
 
-    return validAdmin.valid ? (
-        props.children
-    ) : validAdmin.valid == undefined ? (
-        <div>Loading...</div>
-    ) : (
-        redirectTo("/admin/login")
-    );
+    if (validAdmin.valid) {
+        return props.children;
+    } else {
+        if (validAdmin.valid == undefined) {
+            return <div>Loading...</div>;
+        } else {
+            navigate("/admin/login");
+            return null;
+        }
+    }
 };
 
 export default ValidateAdmin;

@@ -57,8 +57,9 @@ router.post("/login", (req, res) => {
                 req.body.username == credentials[i].username &&
                 req.body.password == credentials[i].password
             ) {
-                req.session.adminKey = generateKey(req.body.username);
-                res.redirect("/admin");
+                req.session.adminKey = true;
+
+                res.status(200).json({ valid: true });
                 return;
             }
         }
@@ -69,17 +70,25 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.get("/logout", (req, res) => {
+    req.session.adminKey = false;
+
+    res.redirect("/admin/login");
+});
+
 router.post("/validate", (req, res) => {
     if (req.session.adminKey) {
-        res.json({ valid: validateKey(req.session.adminKey) });
+        res.json({ valid: true });
     } else {
         res.json({ valid: false });
     }
 });
 
 router.post("/insert/:type", (req, res) => {
-    if (req.session.adminKey && !validateKey(req.session.adminKey)) {
-        res.status(400).json({ error: "Invalid API key." });
+    if (req.session.adminKey) {
+        res.status(400).json({
+            error: "You need to be an administrator to perform this action.",
+        });
         return;
     }
 
@@ -89,8 +98,10 @@ router.post("/insert/:type", (req, res) => {
 });
 
 router.post("/alter/:type", (req, res) => {
-    if (req.session.adminKey && !validateKey(req.session.adminKey)) {
-        res.status(400).json({ error: "Invalid API key." });
+    if (req.session.adminKey) {
+        res.status(400).json({
+            error: "You need to be an administrator to perform this action.",
+        });
         return;
     }
 

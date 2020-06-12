@@ -1,15 +1,15 @@
-import React, { useLayoutEffect, useState, useContext } from "react";
+import React from "react";
 
-import Layout from "./Layout";
+import AdminLayout from "./AdminLayout";
 import ValidateAdmin from "./ValidateAdmin";
 
 const Admin = () => {
     return (
-        <Layout title="Admin" slug="admin" description="" keywords={[]}>
+        <AdminLayout title="Admin" slug="admin" description="" keywords={[]}>
             <ValidateAdmin>
-                <p>You are now on the admin page.</p>
+                <h1>Administration Dashboard</h1>
             </ValidateAdmin>
-        </Layout>
+        </AdminLayout>
     );
 };
 

@@ -9,7 +9,6 @@ const ValidateAdmin = (props) => {
             fetch("/api/validate", { method: "POST" })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     setValidAdmin(data);
                 });
         }

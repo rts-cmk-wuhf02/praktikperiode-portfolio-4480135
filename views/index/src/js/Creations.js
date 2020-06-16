@@ -20,7 +20,7 @@ const Creations = () => {
 
     return (
         <Layout title="Creations" slug="creations" description="" keywords={[]}>
-            <div className="creations-container">
+            <div className="creations-page-container">
                 {creations.map((creation, i) => {
                     return (
                         <CreationCard

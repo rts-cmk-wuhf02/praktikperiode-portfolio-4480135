@@ -7,7 +7,7 @@ const Admin = () => {
     return (
         <AdminLayout title="Admin" slug="admin" description="" keywords={[]}>
             <ValidateAdmin>
-                <h1>Administration Dashboard</h1>
+                <h1>Administration</h1>
             </ValidateAdmin>
         </AdminLayout>
     );

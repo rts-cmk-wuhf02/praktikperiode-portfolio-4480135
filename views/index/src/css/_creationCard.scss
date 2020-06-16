@@ -47,17 +47,30 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+    }
 
-        a {
-            color: inherit;
-            text-decoration: inherit;
-        }
+    a {
+        display: inline-block;
+        visibility: hidden;
+        color: inherit;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 15;
+        text-decoration: inherit;
     }
 
     &:hover {
+        cursor: pointer;
+
         .side-a,
         .side-b {
             transform: rotateY(180deg);
+        }
+
+        a {
+            visibility: visible;
+            transition: visibility 10ms linear 100ms;
         }
     }
 }

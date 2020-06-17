@@ -71,6 +71,10 @@
         a {
             visibility: visible;
             transition: visibility 10ms linear 100ms;
+
+            @media screen and (min-width: 600px) {
+                transition: none;
+            }
         }
     }
 }

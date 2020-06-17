@@ -14,27 +14,25 @@ const AdminLogin = () => {
             <div className="admin-login-container">
                 <section>
                     <form>
-                        <section>
-                            <label htmlFor="username">Username:</label>
+                        <div className="input-wrapper">
+                            <label htmlFor="username">Username</label>
                             <input
                                 name="username"
                                 id="username"
                                 type="text"
-                                placeholder="Username"
                                 required
                             />
-                        </section>
+                        </div>
 
-                        <section>
-                            <label htmlFor="password">Password:</label>
+                        <div className="input-wrapper">
+                            <label htmlFor="password">Password</label>
                             <input
                                 name="password"
                                 id="password"
                                 type="password"
-                                placeholder="Password"
                                 required
                             />
-                        </section>
+                        </div>
 
                         <button
                             type="submit"

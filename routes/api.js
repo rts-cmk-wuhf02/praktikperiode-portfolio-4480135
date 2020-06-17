@@ -1,6 +1,7 @@
 const databaseConnection = require("../database");
 const express = require("express");
 const { session } = require("passport");
+const { ESRCH } = require("constants");
 const router = express.Router();
 
 // Credentials and generated keys
@@ -87,32 +88,6 @@ router.post("/validate", (req, res) => {
     }
 });
 
-router.post("/insert/:type", (req, res) => {
-    if (req.session.adminKey) {
-        res.status(400).json({
-            error: "You need to be an administrator to perform this action.",
-        });
-        return;
-    }
-
-    if (req.query.type == "creations") {
-        res.status(200).json({ response: "No response." });
-    }
-});
-
-router.post("/alter/:type", (req, res) => {
-    if (req.session.adminKey) {
-        res.status(400).json({
-            error: "You need to be an administrator to perform this action.",
-        });
-        return;
-    }
-
-    if (req.query.type == "creations") {
-        res.status(200).json({ response: "No response." });
-    }
-});
-
 router.get("/get/:type", (req, res) => {
     if (req.params.type == "creations") {
         databaseConnection.query(
@@ -139,6 +114,97 @@ router.get("/get/:type/:url_slug", (req, res) => {
                 '` WHERE url_slug="' +
                 req.params.url_slug +
                 '"',
+            (err, resp) => {
+                if (err) {
+                    res.status(400).json({ error: "An error occured: " + err });
+                    return;
+                }
+
+                res.status(200).json(resp);
+            }
+        );
+    } else {
+        res.status(400).json({ error: "Invalid type." });
+    }
+});
+
+router.post("/delete/:type/:url_slug", (req, res) => {
+    if (!req.session.adminKey) {
+        res.status(400).json({
+            error: "You need to be an administrator to perform this action.",
+        });
+        return;
+    }
+
+    if (req.params.type == "creations") {
+        databaseConnection.query(
+            "DELETE FROM `" +
+                req.params.type +
+                '` WHERE url_slug="' +
+                req.params.url_slug +
+                '"',
+            (err, resp) => {
+                if (err) {
+                    res.status(400).json({ error: "An error occured: " + err });
+                    return;
+                }
+
+                res.status(200).json(resp);
+            }
+        );
+    } else {
+        res.status(400).json({ error: "Invalid type." });
+    }
+});
+
+router.post("/insert/:type", (req, res) => {
+    if (!req.session.adminKey) {
+        res.status(400).json({
+            error: "You need to be an administrator to perform this action.",
+        });
+        return;
+    }
+
+    if (req.params.type == "creations") {
+        databaseConnection.query(
+            `INSERT INTO \`${req.params.type}\` (\`name\`, \`url_slug\`, \`image_url\`, \`url\`, \`description\`) VALUES (
+            '${req.body.name}',
+            '${req.body.url_slug}',
+            '${req.body.image_url}',
+            '${req.body.url}',
+            '${req.body.description}'
+            )`,
+            (err, resp) => {
+                if (err) {
+                    res.status(400).json({ error: "An error occured: " + err });
+                    return;
+                }
+
+                res.status(200).json(resp);
+            }
+        );
+    } else {
+        res.status(400).json({ error: "Invalid type." });
+    }
+});
+
+router.post("/update/:type/:url_slug", (req, res) => {
+    if (!req.session.adminKey) {
+        res.status(400).json({
+            error: "You need to be an administrator to perform this action.",
+        });
+        return;
+    }
+
+    if (req.params.type == "creations") {
+        databaseConnection.query(
+            `UPDATE \`${req.params.type}\` SET 
+            \`name\`='${req.body.name}',
+            \`url_slug\`='${req.body.url_slug}',
+            \`image_url\`='${req.body.image_url}',
+            \`url\`='${req.body.url}',
+            \`description\`='${req.body.description}' 
+            WHERE url_slug='${req.params.url_slug}'`,
             (err, resp) => {
                 if (err) {
                     res.status(400).json({ error: "An error occured: " + err });

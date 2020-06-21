@@ -126,243 +126,123 @@ const AdminCreations = () => {
                 </div>
             </ValidateAdmin>
 
-            {
-                <Popup
-                    visible={popupMessage.visible}
-                    title={popupMessage.title}
-                >
-                    {(() => {
-                        if (popupMessage.type == "delete") {
-                            return (
-                                <div>
-                                    <p>
-                                        Are you sure you want to delete this
-                                        element?
-                                    </p>
+            <Popup visible={popupMessage.visible} title={popupMessage.title}>
+                {(() => {
+                    if (popupMessage.type == "delete") {
+                        return (
+                            <div>
+                                <p>
+                                    Are you sure you want to delete this
+                                    element?
+                                </p>
 
-                                    <div className="button-container">
-                                        <button
-                                            onClick={() => {
-                                                fetch(
-                                                    "/api/delete/creations/" +
-                                                        popupMessage.parameters,
-                                                    {
-                                                        method: "POST",
-                                                    }
+                                <div className="button-container">
+                                    <button
+                                        onClick={() => {
+                                            fetch(
+                                                "/api/delete/creations/" +
+                                                    popupMessage.parameters,
+                                                {
+                                                    method: "POST",
+                                                }
+                                            )
+                                                .then((response) =>
+                                                    response.json()
                                                 )
-                                                    .then((response) =>
-                                                        response.json()
-                                                    )
-                                                    .then((data) => {
-                                                        fetchCreations();
-                                                    });
+                                                .then((data) => {
+                                                    fetchCreations();
+                                                });
 
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            Yes
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            No
-                                        </button>
-                                    </div>
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        No
+                                    </button>
                                 </div>
-                            );
-                        } else if (popupMessage.type == "edit") {
-                            return (
-                                <div>
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-name">
-                                            Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-name"
-                                            name="creation-name"
-                                            defaultValue={
-                                                popupMessage.parameters.name
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-slug">
-                                            Slug
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-slug"
-                                            name="creation-slug"
-                                            defaultValue={
-                                                popupMessage.parameters.url_slug
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-url">
-                                            URL
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-url"
-                                            name="creation-url"
-                                            defaultValue={
-                                                popupMessage.parameters.url
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-image-url">
-                                            Image URL
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-image-url"
-                                            name="creation-image-url"
-                                            defaultValue={
-                                                popupMessage.parameters
-                                                    .image_url
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-description">
-                                            Description
-                                        </label>
-                                        <textarea
-                                            rows="4"
-                                            id="creation-description"
-                                            name="creation-description"
-                                            defaultValue={
-                                                popupMessage.parameters
-                                                    .description
-                                            }
-                                        ></textarea>
-                                    </div>
-
-                                    <div className="button-container">
-                                        <button
-                                            onClick={() => {
-                                                fetch(
-                                                    "/api/update/creations/" +
-                                                        "ahlgreen-net",
-                                                    {
-                                                        method: "POST",
-                                                        headers: {
-                                                            "Content-Type":
-                                                                "application/json",
-                                                        },
-                                                        body: JSON.stringify({
-                                                            name: document.querySelector(
-                                                                "#creation-name"
-                                                            ).value,
-                                                            url_slug: document.querySelector(
-                                                                "#creation-slug"
-                                                            ).value,
-                                                            image_url: document.querySelector(
-                                                                "#creation-image-url"
-                                                            ).value,
-                                                            url: document.querySelector(
-                                                                "#creation-url"
-                                                            ).value,
-                                                            description: document.querySelector(
-                                                                "#creation-description"
-                                                            ).value,
-                                                        }),
-                                                    }
-                                                )
-                                                    .then((response) =>
-                                                        response.json()
-                                                    )
-                                                    .then((data) => {
-                                                        console.log(data);
-                                                        fetchCreations();
-                                                    });
-
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            Save
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                            </div>
+                        );
+                    } else if (popupMessage.type == "edit") {
+                        return (
+                            <div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="creation-name"
+                                        name="creation-name"
+                                        defaultValue={decodeURIComponent(
+                                            popupMessage.parameters.name
+                                        )}
+                                    />
                                 </div>
-                            );
-                        } else if (popupMessage.type == "add") {
-                            return (
-                                <div>
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-name">
-                                            Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-name"
-                                            name="creation-name"
-                                        />
-                                    </div>
 
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-slug">
-                                            Slug
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-slug"
-                                            name="creation-slug"
-                                        />
-                                    </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-slug">Slug</label>
+                                    <input
+                                        type="text"
+                                        id="creation-slug"
+                                        name="creation-slug"
+                                        defaultValue={decodeURIComponent(
+                                            popupMessage.parameters.url_slug
+                                        )}
+                                    />
+                                </div>
 
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-url">
-                                            URL
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-url"
-                                            name="creation-url"
-                                        />
-                                    </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-url">URL</label>
+                                    <input
+                                        type="text"
+                                        id="creation-url"
+                                        name="creation-url"
+                                        defaultValue={decodeURIComponent(
+                                            popupMessage.parameters.url
+                                        )}
+                                    />
+                                </div>
 
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-image-url">
-                                            Image URL
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="creation-image-url"
-                                            name="creation-image-url"
-                                        />
-                                    </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-image-url">
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="creation-image-url"
+                                        name="creation-image-url"
+                                        defaultValue={decodeURIComponent(
+                                            popupMessage.parameters.image_url
+                                        )}
+                                    />
+                                </div>
 
-                                    <div className="input-wrapper">
-                                        <label htmlFor="creation-description">
-                                            Description
-                                        </label>
-                                        <textarea
-                                            rows="4"
-                                            id="creation-description"
-                                            name="creation-description"
-                                        ></textarea>
-                                    </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-description">
+                                        Description
+                                    </label>
+                                    <textarea
+                                        rows="4"
+                                        id="creation-description"
+                                        name="creation-description"
+                                        defaultValue={
+                                            popupMessage.parameters.description
+                                        }
+                                    ></textarea>
+                                </div>
 
-                                    <div className="button-container">
-                                        <button
-                                            onClick={() => {
-                                                fetch("/api/insert/creations", {
+                                <div className="button-container">
+                                    <button
+                                        onClick={() => {
+                                            fetch(
+                                                "/api/update/creations/" +
+                                                    popupMessage.parameters
+                                                        .url_slug,
+                                                {
                                                     method: "POST",
                                                     headers: {
                                                         "Content-Type":
@@ -385,34 +265,136 @@ const AdminCreations = () => {
                                                             "#creation-description"
                                                         ).value,
                                                     }),
-                                                })
-                                                    .then((response) =>
-                                                        response.json()
-                                                    )
-                                                    .then((data) => {
-                                                        console.log(data);
-                                                        fetchCreations();
-                                                    });
+                                                }
+                                            )
+                                                .then((response) =>
+                                                    response.json()
+                                                )
+                                                .then((data) => {
+                                                    console.log(data);
+                                                    fetchCreations();
+                                                });
 
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            Add
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                resetPopupMessage();
-                                            }}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
-                            );
-                        }
-                    })()}
-                </Popup>
-            }
+                            </div>
+                        );
+                    } else if (popupMessage.type == "add") {
+                        return (
+                            <div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="creation-name"
+                                        name="creation-name"
+                                    />
+                                </div>
+
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-slug">Slug</label>
+                                    <input
+                                        type="text"
+                                        id="creation-slug"
+                                        name="creation-slug"
+                                    />
+                                </div>
+
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-url">URL</label>
+                                    <input
+                                        type="text"
+                                        id="creation-url"
+                                        name="creation-url"
+                                    />
+                                </div>
+
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-image-url">
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="creation-image-url"
+                                        name="creation-image-url"
+                                    />
+                                </div>
+
+                                <div className="input-wrapper">
+                                    <label htmlFor="creation-description">
+                                        Description
+                                    </label>
+                                    <textarea
+                                        rows="4"
+                                        id="creation-description"
+                                        name="creation-description"
+                                    ></textarea>
+                                </div>
+
+                                <div className="button-container">
+                                    <button
+                                        onClick={() => {
+                                            fetch("/api/insert/creations", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                    name: document.querySelector(
+                                                        "#creation-name"
+                                                    ).value,
+                                                    url_slug: document.querySelector(
+                                                        "#creation-slug"
+                                                    ).value,
+                                                    image_url: document.querySelector(
+                                                        "#creation-image-url"
+                                                    ).value,
+                                                    url: document.querySelector(
+                                                        "#creation-url"
+                                                    ).value,
+                                                    description: document.querySelector(
+                                                        "#creation-description"
+                                                    ).value,
+                                                }),
+                                            })
+                                                .then((response) =>
+                                                    response.json()
+                                                )
+                                                .then((data) => {
+                                                    console.log(data);
+                                                    fetchCreations();
+                                                });
+
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        Add
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            resetPopupMessage();
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    }
+                })()}
+            </Popup>
         </AdminLayout>
     );
 };

@@ -89,46 +89,47 @@ router.post("/validate", (req, res) => {
 });
 
 router.get("/get/:type", (req, res) => {
-    if (req.params.type == "creations") {
-        databaseConnection.query(
-            "SELECT * FROM `" + req.params.type + "`",
-            (err, resp) => {
-                if (err) {
-                    res.status(400).json({ error: "An error occured: " + err });
-                    return;
-                }
+    let query = "";
 
-                res.status(200).json(resp);
-            }
-        );
+    if (req.params.type == "creations" || req.params.type == "knowledge") {
+        query = `SELECT * FROM \`${req.params.type}\``;
     } else {
         res.status(400).json({ error: "Invalid type." });
+        return;
     }
+
+    databaseConnection.query(query, (err, resp) => {
+        if (err) {
+            res.status(400).json({ error: "An error occured: " + err });
+            return;
+        }
+
+        res.status(200).json(resp);
+    });
 });
 
-router.get("/get/:type/:url_slug", (req, res) => {
+router.get("/get/:type/:selector", (req, res) => {
+    let query = "";
     if (req.params.type == "creations") {
-        databaseConnection.query(
-            "SELECT * FROM `" +
-                req.params.type +
-                '` WHERE url_slug="' +
-                req.params.url_slug +
-                '"',
-            (err, resp) => {
-                if (err) {
-                    res.status(400).json({ error: "An error occured: " + err });
-                    return;
-                }
-
-                res.status(200).json(resp);
-            }
-        );
+        query = `SELECT * FROM \`${req.params.type}\` WHERE url_slug='${req.params.selector}'`;
+    } else if (req.params.type == "knowledge") {
+        query = `SELECT * FROM \`${req.params.type}\` WHERE id='${req.params.selector}'`;
     } else {
         res.status(400).json({ error: "Invalid type." });
+        return;
     }
+
+    databaseConnection.query(query, (err, resp) => {
+        if (err) {
+            res.status(400).json({ error: "An error occured: " + err });
+            return;
+        }
+
+        res.status(200).json(resp);
+    });
 });
 
-router.post("/delete/:type/:url_slug", (req, res) => {
+router.post("/delete/:type/:selector", (req, res) => {
     if (!req.session.adminKey) {
         res.status(400).json({
             error: "You need to be an administrator to perform this action.",
@@ -136,25 +137,34 @@ router.post("/delete/:type/:url_slug", (req, res) => {
         return;
     }
 
+    let query = "";
     if (req.params.type == "creations") {
-        databaseConnection.query(
+        query =
             "DELETE FROM `" +
-                req.params.type +
-                '` WHERE url_slug="' +
-                req.params.url_slug +
-                '"',
-            (err, resp) => {
-                if (err) {
-                    res.status(400).json({ error: "An error occured: " + err });
-                    return;
-                }
-
-                res.status(200).json(resp);
-            }
-        );
+            req.params.type +
+            '` WHERE url_slug="' +
+            encodeURIComponent(req.params.selector) +
+            '"';
+    } else if (req.params.type == "knowledge") {
+        query =
+            "DELETE FROM `" +
+            req.params.type +
+            '` WHERE name="' +
+            encodeURIComponent(req.params.selector) +
+            '"';
     } else {
         res.status(400).json({ error: "Invalid type." });
+        return;
     }
+
+    databaseConnection.query(query, (err, resp) => {
+        if (err) {
+            res.status(400).json({ error: "An error occured: " + err });
+            return;
+        }
+
+        res.status(200).json(resp);
+    });
 });
 
 router.post("/insert/:type", (req, res) => {
@@ -165,30 +175,40 @@ router.post("/insert/:type", (req, res) => {
         return;
     }
 
+    let query = ``;
     if (req.params.type == "creations") {
-        databaseConnection.query(
-            `INSERT INTO \`${req.params.type}\` (\`name\`, \`url_slug\`, \`image_url\`, \`url\`, \`description\`) VALUES (
-            '${req.body.name}',
-            '${req.body.url_slug}',
-            '${req.body.image_url}',
-            '${req.body.url}',
-            '${req.body.description}'
-            )`,
-            (err, resp) => {
-                if (err) {
-                    res.status(400).json({ error: "An error occured: " + err });
-                    return;
-                }
-
-                res.status(200).json(resp);
-            }
-        );
+        query = `INSERT INTO \`${
+            req.params.type
+        }\` (\`name\`, \`url_slug\`, \`image_url\`, \`url\`, \`description\`) VALUES (
+            '${encodeURIComponent(req.body.name)}',
+            '${encodeURIComponent(req.body.url_slug)}',
+            '${encodeURIComponent(req.body.image_url)}',
+            '${encodeURIComponent(req.body.url)}',
+            '${encodeURIComponent(req.body.description)}'
+            )`;
+    } else if (req.params.type == "knowledge") {
+        query = `INSERT INTO \`${
+            req.params.type
+        }\` (\`name\`, \`percentage\`) VALUES (
+            '${encodeURIComponent(req.body.name)}',
+            '${req.body.percentage}'
+            )`;
     } else {
         res.status(400).json({ error: "Invalid type." });
+        return;
     }
+
+    databaseConnection.query(query, (err, resp) => {
+        if (err) {
+            res.status(400).json({ error: "An error occured: " + err });
+            return;
+        }
+
+        res.status(200).json(resp);
+    });
 });
 
-router.post("/update/:type/:url_slug", (req, res) => {
+router.post("/update/:type/:selector", (req, res) => {
     if (!req.session.adminKey) {
         res.status(400).json({
             error: "You need to be an administrator to perform this action.",
@@ -196,27 +216,33 @@ router.post("/update/:type/:url_slug", (req, res) => {
         return;
     }
 
+    let query = "";
     if (req.params.type == "creations") {
-        databaseConnection.query(
-            `UPDATE \`${req.params.type}\` SET 
-            \`name\`='${req.body.name}',
-            \`url_slug\`='${req.body.url_slug}',
-            \`image_url\`='${req.body.image_url}',
-            \`url\`='${req.body.url}',
-            \`description\`='${req.body.description}' 
-            WHERE url_slug='${req.params.url_slug}'`,
-            (err, resp) => {
-                if (err) {
-                    res.status(400).json({ error: "An error occured: " + err });
-                    return;
-                }
-
-                res.status(200).json(resp);
-            }
-        );
+        query = `UPDATE \`${req.params.type}\` SET 
+        \`name\`='${encodeURIComponent(req.body.name)}',
+        \`url_slug\`='${encodeURIComponent(req.body.url_slug)}',
+        \`image_url\`='${encodeURIComponent(req.body.image_url)}',
+        \`url\`='${encodeURIComponent(req.body.url)}',
+        \`description\`='${encodeURIComponent(req.body.description)}' 
+        WHERE url_slug='${req.params.selector}'`;
+    } else if (req.params.type == "knowledge") {
+        query = `UPDATE \`${req.params.type}\` SET 
+        \`name\`='${encodeURIComponent(req.body.name)}',
+        \`percentage\`='${req.body.percentage}'
+        WHERE id='${encodeURIComponent(req.params.selector)}'`;
     } else {
         res.status(400).json({ error: "Invalid type." });
+        return;
     }
+
+    databaseConnection.query(query, (err, resp) => {
+        if (err) {
+            res.status(400).json({ error: "An error occured: " + err });
+            return;
+        }
+
+        res.status(200).json(resp);
+    });
 });
 
 module.exports = router;

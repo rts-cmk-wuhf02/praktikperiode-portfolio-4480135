@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
@@ -8,6 +8,18 @@ import ImageSide from "./ImageSide";
 import Layout from "./Layout";
 
 const Home = () => {
+    const [knowledge, setKnowledge] = useState([]);
+
+    useLayoutEffect(() => {
+        if (knowledge.length == 0) {
+            fetch("/api/get/knowledge")
+                .then((response) => response.json())
+                .then((data) => {
+                    setKnowledge(data);
+                });
+        }
+    });
+
     return (
         <Layout title="Home" slug="" description="" keywords={[]}>
             <div className="home-container">
@@ -25,13 +37,26 @@ const Home = () => {
 
                     <section className="skills">
                         <h2>Knowledge/Skillset</h2>
-                        <ProgressBar title="HTML/CSS" percentage={95} />
-                        <ProgressBar
-                            title="JavaScript/Node.js"
-                            percentage={90}
-                        />
-                        <ProgressBar title="C++" percentage={55} />
-                        <ProgressBar title="Python/C#/Other" percentage={30} />
+
+                        <div>
+                            {knowledge
+                                .sort(
+                                    (a, b) =>
+                                        parseInt(b.percentage) -
+                                        parseInt(a.percentage)
+                                )
+                                .map((element, i) => {
+                                    return (
+                                        <ProgressBar
+                                            key={i}
+                                            title={decodeURIComponent(
+                                                element.name
+                                            )}
+                                            percentage={element.percentage}
+                                        />
+                                    );
+                                })}
+                        </div>
                     </section>
 
                     <section className="socials">

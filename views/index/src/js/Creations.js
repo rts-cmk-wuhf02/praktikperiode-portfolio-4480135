@@ -25,10 +25,10 @@ const Creations = () => {
                     return (
                         <CreationCard
                             key={i}
-                            src={creation.image_url}
+                            src={decodeURIComponent(creation.image_url)}
                             url_slug={creation.url_slug}
                         >
-                            <p>{creation.name}</p>
+                            <p>{decodeURIComponent(creation.name)}</p>
                         </CreationCard>
                     );
                 })}

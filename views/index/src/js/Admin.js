@@ -98,7 +98,7 @@ const Admin = () => {
                                                   onClick={(e) => {
                                                       handleDeleteBtnClick(
                                                           e,
-                                                          element.name
+                                                          element.id
                                                       );
                                                   }}
                                                   className="delete-button"

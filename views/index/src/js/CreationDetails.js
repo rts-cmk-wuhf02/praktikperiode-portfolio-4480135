@@ -19,23 +19,43 @@ const CreationDetails = (props) => {
 
     return (
         <Layout
-            title={creation.name ? creation.name : ""}
-            slug={`creation/${creation.url_slug ? creation.url_slug : 2}`}
+            title={creation.name ? decodeURIComponent(creation.name) : ""}
+            slug={`creation/${
+                creation.url_slug ? decodeURIComponent(creation.url_slug) : ""
+            }`}
             description={""}
             keywords={[]}
         >
             <div className="creation-details-container">
                 <ImageSide
-                    name={creation.id ? creation.name : ""}
-                    image_src={creation.id ? creation.image_url : ""}
-                    image_href={creation.id ? creation.url : ""}
+                    name={creation.id ? decodeURIComponent(creation.name) : ""}
+                    image_src={
+                        creation.id
+                            ? decodeURIComponent(creation.image_url)
+                            : ""
+                    }
+                    image_href={
+                        creation.id ? decodeURIComponent(creation.url) : ""
+                    }
                 >
                     <h1>
-                        <a href={creation.id ? creation.url : ""}>
-                            {creation.id ? creation.name : ""}
+                        <a
+                            href={
+                                creation.id
+                                    ? decodeURIComponent(creation.url)
+                                    : ""
+                            }
+                        >
+                            {creation.id
+                                ? decodeURIComponent(creation.name)
+                                : ""}
                         </a>
                     </h1>
-                    <p>{creation.id ? creation.description : ""}</p>
+                    <p>
+                        {creation.id
+                            ? decodeURIComponent(creation.description)
+                            : ""}
+                    </p>
                 </ImageSide>
             </div>
         </Layout>

@@ -143,15 +143,15 @@ router.post("/delete/:type/:selector", (req, res) => {
             "DELETE FROM `" +
             req.params.type +
             '` WHERE url_slug="' +
-            encodeURIComponent(req.params.selector) +
+            req.params.selector +
             '"';
     } else if (req.params.type == "knowledge") {
         query =
             "DELETE FROM `" +
             req.params.type +
-            '` WHERE name="' +
-            encodeURIComponent(req.params.selector) +
-            '"';
+            "` WHERE id=" +
+            req.params.selector +
+            "";
     } else {
         res.status(400).json({ error: "Invalid type." });
         return;

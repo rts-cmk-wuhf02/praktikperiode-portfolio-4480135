@@ -81,10 +81,16 @@ const AdminCreations = () => {
                                           <div className="info-container">
                                               <div className="creation-card-icon">
                                                   <img
-                                                      src={creation.image_url}
+                                                      src={decodeURIComponent(
+                                                          creation.image_url
+                                                      )}
                                                   />
                                               </div>
-                                              <p>{creation.name}</p>
+                                              <p>
+                                                  {decodeURIComponent(
+                                                      creation.name
+                                                  )}
+                                              </p>
                                           </div>
 
                                           <div className="function-container">
@@ -229,9 +235,9 @@ const AdminCreations = () => {
                                         rows="4"
                                         id="creation-description"
                                         name="creation-description"
-                                        defaultValue={
+                                        defaultValue={decodeURIComponent(
                                             popupMessage.parameters.description
-                                        }
+                                        )}
                                     ></textarea>
                                 </div>
 

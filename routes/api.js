@@ -1,4 +1,8 @@
-let { getDatabaseConnection, connectToDatabase, sessionStore } = require("../database");
+let {
+    getDatabaseConnection,
+    connectToDatabase,
+    sessionStore,
+} = require("../database");
 const express = require("express");
 const { session } = require("passport");
 const { ESRCH } = require("constants");
@@ -63,7 +67,7 @@ const validateDatabase = () => {
         if (err) console.error(err);
         console.log("Cleared session storage.");
     });
-}
+};
 
 setInterval(validateDatabase, 1000 * 60 * 60 * 24 * 14);
 
@@ -72,26 +76,50 @@ router.post("/login", (req, res) => {
     let sess = req.session;
 
     if (
-        req.body != undefined &&
-        req.body.username != undefined &&
-        req.body.password != undefined
+        req.session.adminLocked == undefined ||
+        req.session.adminLocked == false
     ) {
-        for (let i = 0; i < credentials.length; i++) {
-            if (
-                req.body.username == credentials[i].username &&
-                req.body.password == credentials[i].password
-            ) {
-                req.session.adminKey = true;
+        if (
+            req.body != undefined &&
+            req.body.username != undefined &&
+            req.body.password != undefined
+        ) {
+            for (let i = 0; i < credentials.length; i++) {
+                if (
+                    req.body.username == credentials[i].username &&
+                    req.body.password == credentials[i].password
+                ) {
+                    req.session.adminKey = true;
 
-                res.status(200).json({ valid: req.session.adminKey });
-                return;
+                    res.status(200).json({ valid: req.session.adminKey });
+                    return;
+                }
             }
+        }
+
+        if (req.session.adminAttempts) {
+            req.session.adminAttempts++;
+
+            if (req.session.adminAttempts > 3) {
+                req.session.adminLocked = true;
+            }
+        } else {
+            req.session.adminAttempts = 1;
+            req.session.adminLocked = false;
         }
     }
 
-    res.status(400).json({
-        error: "Request body must contain a valid username and password",
-    });
+    if (req.session.adminLocked) {
+        res.status(400).json({
+            error: "Too many attempts at accessing the administration panel",
+            locked: true,
+        });
+    } else {
+        res.status(400).json({
+            error: "Incorrect password and username combination",
+            locked: false,
+        });
+    }
 });
 
 router.get("/logout", (req, res) => {

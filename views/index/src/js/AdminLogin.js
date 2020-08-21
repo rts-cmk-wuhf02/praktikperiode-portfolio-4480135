@@ -12,6 +12,8 @@ const AdminLogin = () => {
             keywords={[]}
         >
             <div className="admin-login-container">
+                <div className="admin-login-alert"></div>
+
                 <section>
                     <form>
                         <div className="input-wrapper">
@@ -65,7 +67,24 @@ const AdminLogin = () => {
                                         .then((data) => {
                                             if (data.valid) {
                                                 navigate("/admin");
+                                                return;
                                             }
+
+                                            if (
+                                                data.error &&
+                                                data.error != ""
+                                            ) {
+                                                document.querySelector(
+                                                    ".admin-login-alert"
+                                                ).innerText = data.error;
+                                            }
+
+                                            document.querySelector(
+                                                "#username"
+                                            ).value = "";
+                                            document.querySelector(
+                                                "#password"
+                                            ).value = "";
                                         })
                                         .catch((err) => {
                                             console.error(err);

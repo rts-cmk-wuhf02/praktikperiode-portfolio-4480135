@@ -53,7 +53,10 @@ const CreationDetails = (props) => {
                     </h1>
                     <p>
                         {creation.id
-                            ? decodeURIComponent(creation.description)
+                            ? decodeURIComponent(creation.description).replace(
+                                  /\n/g,
+                                  "<br>"
+                              )
                             : ""}
                     </p>
                 </ImageSide>

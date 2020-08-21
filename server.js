@@ -33,13 +33,8 @@ app.use(cors());
 // Express-Session
 app.set("trust proxy", 1);
 
-let sessionStore = new MySQLStore({
-    host: "localhost",
-    port: "3306",
-    user: "root",
-    password: process.env.MYSQL_PASSWORD,
-    database: "ahlgreen_net",
-});
+
+let { sessionStore } = require("./database");
 
 if (process.env.NODE_ENV == "production") app.set("trust proxy", true);
 app.use(

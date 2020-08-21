@@ -1,8 +1,10 @@
-const databaseConnection = require("../database");
+let { getDatabaseConnection, connectToDatabase, sessionStore } = require("../database");
 const express = require("express");
 const { session } = require("passport");
 const { ESRCH } = require("constants");
 const router = express.Router();
+
+let databaseConnection = getDatabaseConnection();
 
 // Credentials and generated keys
 const generatedKeys = [];
@@ -46,6 +48,24 @@ const validateKey = (key) => {
         return true;
     }
 };
+
+// Check if database connection is valid
+const validateDatabase = () => {
+    databaseConnection.query("SELECT test FROM system", (err, resp) => {
+        if (err) {
+            console.log("Reperformed database handshake.");
+            databaseConnection = connectToDatabase();
+        }
+    });
+
+    // Clear session store
+    sessionStore.clear((err) => {
+        if (err) console.error(err);
+        console.log("Cleared session storage.");
+    });
+}
+
+setInterval(validateDatabase, 1000 * 60 * 60 * 24 * 14);
 
 // Routes
 router.post("/login", (req, res) => {

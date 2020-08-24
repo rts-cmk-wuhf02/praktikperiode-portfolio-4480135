@@ -37,7 +37,7 @@ function Layout(props) {
                         }
                     />
 
-                    <title>Ahlgreen.NET / {props.title}</title>
+                    <title>Ahlgreen - {props.title}</title>
                 </Helmet>
                 {props.children}
             </main>

@@ -53,10 +53,22 @@ const CreationDetails = (props) => {
                     </h1>
                     <p>
                         {creation.id
-                            ? decodeURIComponent(creation.description).replace(
-                                  /\n/g,
-                                  "<br>"
-                              )
+                            ? (() => {
+                                  const lines = decodeURIComponent(
+                                      creation.description
+                                  );
+                                  const charOutput = [];
+
+                                  for (let i = 0; i < lines.length; i++) {
+                                      if (lines[i] == "\n") {
+                                          charOutput.push(<br key={i} />);
+                                      } else {
+                                          charOutput.push(lines[i]);
+                                      }
+                                  }
+
+                                  return charOutput;
+                              })()
                             : ""}
                     </p>
                 </ImageSide>
